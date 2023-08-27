@@ -48,7 +48,7 @@ public class BankAccount {
         if (digits*9 < sum){
             throw new Exception("Account Number can not be generated");
         }else {
-            while (digits > 0){
+            while (digits > 0 && rem > 0){
 
                 if(rem >=9){
                     rem =rem-9;
@@ -58,6 +58,10 @@ public class BankAccount {
                     accNo+= Integer.toString(rem);
                     rem=0;
                 }
+                digits--;
+            }
+            while(digits > 0){
+                accNo+="0";
                 digits--;
             }
         }
