@@ -50,9 +50,11 @@ public class CurrentAccount extends BankAccount {
 
     public boolean isValid(String tradeLicenseId ){
 
-        for (int i=0;i<tradeLicenseId.length()-1;i++){
+        char[] arr = tradeLicenseId.toCharArray();
 
-            if(tradeLicenseId.charAt(i)==tradeLicenseId.charAt(i+1)){
+        for (int i=0;i<arr.length-1;i++){
+
+            if(arr[i]==arr[i+1]){
                 return false;
             }
         }
@@ -68,9 +70,10 @@ public class CurrentAccount extends BankAccount {
             char curr = tradeLicenseId.charAt(i);
 
             map.put(curr,map.getOrDefault(curr,0)+1);
+        }
 
-            max = Math.max(max,map.get(curr));
-
+        for (Character x : map.keySet()){
+            Math.max(max,map.get(x));
         }
 
         return max;
@@ -82,9 +85,6 @@ public class CurrentAccount extends BankAccount {
 
             for (int i = 0; i < n; i++) {
                 f[s.charAt(i) - 'a']++;
-                if (f[s.charAt(i) - 'a'] > (n + 1) / 2) {
-                    return "";
-                }
             }
 
             PriorityQueue<Pair> p = new PriorityQueue<>((a, b) -> b.freq - a.freq);
