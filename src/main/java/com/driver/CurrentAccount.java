@@ -60,7 +60,7 @@ public class CurrentAccount extends BankAccount{
     }
 
     public int countMaxChar(String tradeLicenseId){
-        HashMap<Characters,Integer> map = new HashMap<>();
+        HashMap<Character,Integer> map = new HashMap<>();
         int max =0;
 
         for (int i=0;i<tradeLicenseId.length();i++){
@@ -75,7 +75,7 @@ public class CurrentAccount extends BankAccount{
         return max;
     }
 
-    public String getNewId(String tradeLicenseId){
+    public String getNewId(String s){
             int[] f = new int[26];
             int n = s.length();
 
@@ -113,10 +113,14 @@ public class CurrentAccount extends BankAccount{
 
             return ans.toString();
         }
-
-        class Pair {
+ public class Pair {
             int freq;
             char ch;
-     }
+
+            public Pair(int freq, char ch) {
+                this.freq = freq;
+                this.ch = ch;
+            }
+        }
 
 }
