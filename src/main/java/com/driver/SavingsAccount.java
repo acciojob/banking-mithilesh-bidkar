@@ -3,12 +3,14 @@ package com.driver;
 public class SavingsAccount extends BankAccount{
     double rate;
     double maxWithdrawalLimit;
+    int n;
 
     public SavingsAccount(String name, double balance, double maxWithdrawalLimit, double rate) {
         // minimum balance is 0 by default
         super(name,balance,0);
         this.maxWithdrawalLimit = maxWithdrawalLimit;
         this.rate = rate;
+        this.n = 0;
 
     }
 
@@ -24,6 +26,14 @@ public class SavingsAccount extends BankAccount{
         return maxWithdrawalLimit;
     }
 
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
     public void setMaxWithdrawalLimit(double maxWithdrawalLimit) {
         this.maxWithdrawalLimit = maxWithdrawalLimit;
     }
@@ -33,7 +43,7 @@ public class SavingsAccount extends BankAccount{
         // 1. "Maximum Withdraw Limit Exceed" : If the amount exceeds maximum withdrawal limit
         // 2. "Insufficient Balance" : If the amount exceeds balance
 
-        if(amount > this.getMaxWithdrawalLimit()){
+        if(n > this.getMaxWithdrawalLimit()){
             throw  new Exception("Maximum Withdraw Limit Exceed");
         }
 
@@ -42,6 +52,7 @@ public class SavingsAccount extends BankAccount{
         }
         else {
             super.withdraw(amount);
+            n++;
         }
 
 
@@ -52,13 +63,14 @@ public class SavingsAccount extends BankAccount{
         // Return the final amount considering that bank gives simple interest on current amount
 
 //        return ((double)years*getBalance()*rate)/100.0;
-        return (getBalance()*rate*years)/100;
+        return (this.getBalance()*years*this.rate/100)+this.getBalance();
     }
 
     public double getCompoundInterest(int times, int years){
         // Return the final amount considering that bank gives compound interest on current amount given times per year
 
-        double cinterest = getBalance() * (Math.pow((1 + rate / 100), years)) - getBalance();
+        double cinterest = this.getBalance()*Math.pow((1+this.rate/(times*100)),times*years);
+
 
 
         return cinterest;
